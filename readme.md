@@ -1,18 +1,33 @@
-# Beautiful Funerals Website
+## Security Features Implemented
 
-A professional funeral services website for Beautiful Funerals based in Berwick VIC, serving Melbourne areas.
+### Admin Security
+- ✅ Backend PHP authentication with sessions
+- ✅ Secure password hashing
+- ✅ Session timeout (1 hour)
+- ✅ Rate limiting on API endpoints
+- ✅ Input validation and sanitization
+- ✅ SQL injection prevention with prepared statements
+- ✅ XSS protection with output escaping
 
-## Features
+### Form Security
+- ✅ Rate limiting on form submissions
+- ✅ Input validation and sanitization
+- ✅ CSRF protection (ready for implementation)
+- ✅ Email header injection prevention
 
-- Responsive design optimized for all devices
-- Professional dark theme with black, white, and silver colors
-- Complete funeral service information and pricing
-- Upcoming funerals with condolences system
-- Grief support resources and blog
-- Statutory forms for pre-meeting information
-- Contact forms with validation
-- Admin panel for content management
-- SEO optimized with proper meta tags
-- Google Analytics integration
+### General Security
+- ✅ HTTPS enforcement
+- ✅ Security headers (CSP, HSTS, X-Frame-Options, etc.)
+- ✅ Directory protection
+- ✅ Sensitive file blocking
+- ✅ Secure database credentials using environment variables
 
-## File Structure
+### Default Admin Credentials
+**Change these immediately after deployment:**
+- Username: `beautiful_admin`
+- Password: `YourSuperSecurePassword123!`
+
+To change credentials:
+1. Update the `.env` file
+2. Regenerate the `.htpasswd` file
+3. Restart your web server
