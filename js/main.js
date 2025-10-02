@@ -66,9 +66,9 @@ class BeautifulFunerals {
         });
     }
 
-    // Event listeners setup - REMOVED ADMIN EVENTS
+    // Event listeners setup - PUBLIC FORMS ONLY
     setupEventListeners() {
-        // Form submissions
+        // Form submissions - no authentication required
         const statutoryForm = document.getElementById('statutory-form');
         if (statutoryForm) {
             statutoryForm.addEventListener('submit', this.handleStatutoryForm.bind(this));
@@ -85,7 +85,7 @@ class BeautifulFunerals {
         }
     }
 
-    // Content loading methods (keep all existing methods the same)
+    // Content loading methods
     async loadServices() {
         const services = [
             {
@@ -93,7 +93,31 @@ class BeautifulFunerals {
                 title: 'Traditional Funerals',
                 description: 'Comprehensive traditional funeral services with personalized ceremonies, viewings, and processions.'
             },
-            // ... keep all existing services
+            {
+                icon: 'map-pin',
+                title: 'Cremation Services',
+                description: 'Dignified cremation options with memorial services tailored to your preferences and beliefs.'
+            },
+            {
+                icon: 'document-text',
+                title: 'Pre-Planning',
+                description: 'Plan ahead to ease the burden on your loved ones and ensure your wishes are respected.'
+            },
+            {
+                icon: 'chat',
+                title: 'Grief Support',
+                description: 'Comprehensive bereavement support services to help families through difficult times.'
+            },
+            {
+                icon: 'camera',
+                title: 'Memorial Services',
+                description: 'Personalized memorial services to celebrate and honor the life of your loved one.'
+            },
+            {
+                icon: 'video-camera',
+                title: 'Live Streaming',
+                description: 'Professional live streaming services for those unable to attend in person.'
+            }
         ];
 
         const container = document.getElementById('services-container');
@@ -105,7 +129,11 @@ class BeautifulFunerals {
     createServiceCard(service) {
         const icons = {
             'users': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>`,
-            // ... keep all existing icons
+            'map-pin': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>`,
+            'document-text': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>`,
+            'chat': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>`,
+            'camera': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>`,
+            'video-camera': `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>`
         };
 
         return `
@@ -121,24 +149,91 @@ class BeautifulFunerals {
         `;
     }
 
+    async loadPricing() {
+        const pricing = [
+            {
+                title: 'Simple Farewell',
+                price: '$3,500',
+                popular: false,
+                features: [
+                    'Basic professional services',
+                    'Transfer of deceased within 30km',
+                    'Simple coffin',
+                    'Cremation fees included'
+                ]
+            },
+            {
+                title: 'Traditional Service',
+                price: '$6,500',
+                popular: true,
+                features: [
+                    'All services from Simple Farewell',
+                    'Viewing at our chapel',
+                    'Hearse and funeral conductor',
+                    'Memorial book and service sheets'
+                ]
+            },
+            {
+                title: 'Premium Celebration',
+                price: '$9,500+',
+                popular: false,
+                features: [
+                    'All services from Traditional Service',
+                    'Premium coffin or casket',
+                    'Floral arrangements',
+                    'Video tribute and live streaming'
+                ]
+            }
+        ];
+
+        const container = document.getElementById('pricing-container');
+        if (container) {
+            container.innerHTML = pricing.map(plan => this.createPricingCard(plan)).join('');
+        }
+    }
+
+    createPricingCard(plan) {
+        return `
+            <div class="card-bg p-8 rounded-lg border ${plan.popular ? 'border-2 border-silver relative' : 'border-gray-700'}">
+                ${plan.popular ? '<div class="absolute top-0 right-0 bg-silver text-black px-4 py-1 text-sm font-medium rounded-bl-lg">Most Popular</div>' : ''}
+                <h3 class="text-2xl font-semibold mb-4 text-silver">${plan.title}</h3>
+                <div class="text-3xl font-bold mb-6">${plan.price}</div>
+                <ul class="space-y-3 mb-8">
+                    ${plan.features.map(feature => `
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-silver mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>${feature}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+                <button class="w-full bg-silver text-black py-3 rounded-lg font-medium hover:bg-white transition-all" onclick="beautifulFunerals.selectPlan('${plan.title}')">
+                    Select Plan
+                </button>
+            </div>
+        `;
+    }
+
     async loadFunerals() {
-        // Fetch funerals from secure API
+        // Try to load from public API first
         try {
             const response = await fetch('/api/funerals.php');
             const result = await response.json();
             
-            if (result.success) {
+            if (result.success && result.data && result.data.length > 0) {
                 const container = document.getElementById('funerals-container');
                 if (container) {
                     container.innerHTML = result.data.map(funeral => this.createFuneralCard(funeral)).join('');
                 }
-            } else {
-                this.loadSampleFunerals(); // Fallback to sample data
+                return;
             }
         } catch (error) {
-            console.error('Failed to load funerals:', error);
-            this.loadSampleFunerals(); // Fallback to sample data
+            console.error('Failed to load funerals from API:', error);
         }
+        
+        // Fallback to sample data if API fails or returns no data
+        this.loadSampleFunerals();
     }
 
     loadSampleFunerals() {
@@ -152,7 +247,24 @@ class BeautifulFunerals {
                 serviceTime: '2:00 PM',
                 liveStream: '#'
             },
-            // ... keep sample data as fallback
+            {
+                id: 'margaret-jones',
+                name: 'Margaret Elizabeth Jones',
+                dateOfDeath: '18th October 2023',
+                location: 'Beautiful Funerals Chapel, Berwick',
+                serviceDate: 'Monday, 30th October 2023',
+                serviceTime: '11:00 AM',
+                liveStream: '#'
+            },
+            {
+                id: 'david-brown',
+                name: 'David William Brown',
+                dateOfDeath: '20th October 2023',
+                location: 'Springvale Botanical Cemetery',
+                serviceDate: 'Wednesday, 1st November 2023',
+                serviceTime: '1:30 PM',
+                liveStream: '#'
+            }
         ];
 
         const container = document.getElementById('funerals-container');
@@ -162,24 +274,31 @@ class BeautifulFunerals {
     }
 
     createFuneralCard(funeral) {
+        // Use formatted dates from API or fallback to existing format
+        const serviceDate = funeral.service_date_formatted || funeral.serviceDate;
+        const dateOfDeath = funeral.date_of_death_formatted || funeral.dateOfDeath;
+        const location = funeral.location || '';
+        const serviceTime = funeral.service_time || '';
+        const liveStream = funeral.live_stream_url || funeral.liveStream || '#';
+
         return `
             <div class="card-bg rounded-lg overflow-hidden">
                 <div class="p-6">
                     <h3 class="text-xl font-semibold mb-2">${this.escapeHtml(funeral.name)}</h3>
-                    <p class="text-gray-300 mb-4">Passed away on ${funeral.dateOfDeath}</p>
+                    <p class="text-gray-300 mb-4">Passed away on ${dateOfDeath}</p>
                     <div class="space-y-2 mb-6">
                         <div class="flex items-start">
                             <svg class="w-5 h-5 text-silver mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
-                            <span>${this.escapeHtml(funeral.location)}</span>
+                            <span>${this.escapeHtml(location)}</span>
                         </div>
                         <div class="flex items-start">
                             <svg class="w-5 h-5 text-silver mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <span>${funeral.serviceDate} at ${funeral.serviceTime}</span>
+                            <span>${serviceDate} at ${serviceTime}</span>
                         </div>
                     </div>
                     <div class="flex space-x-3">
@@ -188,7 +307,7 @@ class BeautifulFunerals {
                             Condolences
                         </button>
                         <button class="flex-1 border border-silver text-silver py-2 rounded-lg font-medium hover:bg-silver hover:text-black transition-all"
-                                onclick="beautifulFunerals.watchLiveStream('${funeral.liveStream}')">
+                                onclick="beautifulFunerals.watchLiveStream('${liveStream}')">
                             Live Stream
                         </button>
                     </div>
@@ -197,7 +316,174 @@ class BeautifulFunerals {
         `;
     }
 
-    // Event handlers (keep all existing handlers)
+    async loadSupportResources() {
+        const resources = [
+            {
+                title: 'Bereavement Counseling',
+                description: 'Professional counseling services to help you process your grief and find healing.'
+            },
+            {
+                title: 'Support Groups',
+                description: 'Connect with others who are experiencing similar losses in a safe, supportive environment.'
+            },
+            {
+                title: 'Online Resources',
+                description: 'Access our library of articles, videos, and guides on coping with grief.'
+            }
+        ];
+
+        const container = document.getElementById('support-resources');
+        if (container) {
+            container.innerHTML = `
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-silver">Supporting You Through Grief</h3>
+                    <p class="text-gray-300 mb-6">Losing a loved one is one of life's most difficult experiences. We're here to provide support and resources to help you through the grieving process.</p>
+                    <div class="space-y-4">
+                        ${resources.map(resource => `
+                            <div class="card-bg p-4 rounded-lg">
+                                <h4 class="text-lg font-medium mb-2">${resource.title}</h4>
+                                <p class="text-gray-300">${resource.description}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    async loadBlogArticles() {
+        const articles = [
+            {
+                title: 'Understanding the Grieving Process',
+                description: 'Learn about the stages of grief and what to expect as you navigate this difficult time.',
+                link: '#'
+            },
+            {
+                title: 'Supporting Children Through Loss',
+                description: 'Guidance on helping children understand and cope with the death of a loved one.',
+                link: '#'
+            },
+            {
+                title: 'Creating Meaningful Memorials',
+                description: 'Ideas for honoring your loved one\'s memory in meaningful ways.',
+                link: '#'
+            }
+        ];
+
+        const container = document.getElementById('blog-articles');
+        if (container) {
+            container.innerHTML = `
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-silver">Helpful Articles</h3>
+                    <div class="space-y-6">
+                        ${articles.map(article => `
+                            <div class="card-bg p-4 rounded-lg">
+                                <h4 class="text-lg font-medium mb-2">${article.title}</h4>
+                                <p class="text-gray-300 mb-3">${article.description}</p>
+                                <a href="${article.link}" class="text-silver hover:text-white transition-all">Read More</a>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    async loadContactInfo() {
+        const container = document.getElementById('contact-info');
+        if (container) {
+            container.innerHTML = `
+                <p class="text-gray-300 mb-8">We're here to help you 24 hours a day, 7 days a week. Please don't hesitate to reach out to us.</p>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium">Phone</h4>
+                            <p class="text-gray-300">1300 AT NEED (1300 28 6333)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium">Address</h4>
+                            <p class="text-gray-300">123 Funeral Services Road<br>Berwick VIC 3806</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium">Email</h4>
+                            <p class="text-gray-300">info@beautifulfunerals.au</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium">Hours</h4>
+                            <p class="text-gray-300">24 hours, 7 days a week</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    async loadFooterContent() {
+        const container = document.getElementById('footer-content');
+        if (container) {
+            container.innerHTML = `
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-silver">Beautiful Funerals</h3>
+                    <p class="text-gray-300">Providing compassionate and professional funeral services throughout Melbourne.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white transition-all">Home</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-white transition-all">Services</a></li>
+                        <li><a href="#pricing" class="text-gray-300 hover:text-white transition-all">Pricing</a></li>
+                        <li><a href="#upcoming" class="text-gray-300 hover:text-white transition-all">Upcoming Funerals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#support" class="text-gray-300 hover:text-white transition-all">Grief Support</a></li>
+                        <li><a href="#forms" class="text-gray-300 hover:text-white transition-all">Statutory Forms</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-all">FAQ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-all">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="text-gray-300">1300 AT NEED</li>
+                        <li class="text-gray-300">info@beautifulfunerals.au</li>
+                        <li class="text-gray-300">Berwick VIC 3806</li>
+                    </ul>
+                </div>
+            `;
+        }
+    }
+
+    // Form handlers - NO AUTHENTICATION REQUIRED
     async handleStatutoryForm(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -209,7 +495,7 @@ class BeautifulFunerals {
             submitButton.innerHTML = '<span class="loading"></span> Submitting...';
             submitButton.disabled = true;
 
-            // Send to secure endpoint
+            // Send to public endpoint - no authentication
             const response = await fetch('/forms/submit.php', {
                 method: 'POST',
                 headers: {
@@ -248,7 +534,7 @@ class BeautifulFunerals {
             submitButton.innerHTML = '<span class="loading"></span> Sending...';
             submitButton.disabled = true;
 
-            // Send to secure endpoint
+            // Send to public endpoint - no authentication
             const response = await fetch('/forms/contact.php', {
                 method: 'POST',
                 headers: {
@@ -276,7 +562,27 @@ class BeautifulFunerals {
         }
     }
 
-    // Keep all other existing methods (showCondolences, closeCondolences, etc.)
+    async handleCondolenceForm(e) {
+        e.preventDefault();
+        const name = document.getElementById('condolence-name').value;
+        const message = document.getElementById('condolence-message').value;
+        
+        const condolencesList = document.getElementById('condolences-list');
+        const newCondolence = document.createElement('div');
+        newCondolence.className = 'border-b border-gray-700 pb-4';
+        newCondolence.innerHTML = `
+            <h4 class="font-medium">${this.escapeHtml(name)}</h4>
+            <p class="text-gray-300 mt-1">${this.escapeHtml(message)}</p>
+            <p class="text-sm text-gray-500 mt-2">Just now</p>
+        `;
+        
+        condolencesList.appendChild(newCondolence);
+        
+        alert('Thank you for leaving a condolence message.');
+        e.target.reset();
+    }
+
+    // Modal functions - PUBLIC ACCESS
     showCondolences(funeralId) {
         const modal = document.getElementById('condolences-modal');
         const nameElement = document.getElementById('condolences-name');
@@ -296,8 +602,9 @@ class BeautifulFunerals {
         }
     }
 
-    // Utility methods
+    // Utility functions
     escapeHtml(unsafe) {
+        if (!unsafe) return '';
         return unsafe
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -329,7 +636,20 @@ class BeautifulFunerals {
                     <p class="text-sm text-gray-500 mt-2">1 day ago</p>
                 </div>
             `,
-            // ... keep existing condolences data
+            'margaret-jones': `
+                <div class="border-b border-gray-700 pb-4">
+                    <h4 class="font-medium">Jennifer Wilson</h4>
+                    <p class="text-gray-300 mt-1">Margaret was such a beautiful soul. Her warmth and compassion will never be forgotten.</p>
+                    <p class="text-sm text-gray-500 mt-2">1 day ago</p>
+                </div>
+            `,
+            'david-brown': `
+                <div class="border-b border-gray-700 pb-4">
+                    <h4 class="font-medium">Robert Chen</h4>
+                    <p class="text-gray-300 mt-1">David was an inspiration to us all. His legacy will live on through the many lives he touched.</p>
+                    <p class="text-sm text-gray-500 mt-2">3 hours ago</p>
+                </div>
+            `
         };
         return condolences[funeralId] || '<p class="text-gray-300">No condolences yet. Be the first to leave a message.</p>';
     }
@@ -340,36 +660,16 @@ class BeautifulFunerals {
 
     watchLiveStream(url) {
         if (url && url !== '#') {
+            // Security: open in new tab with noopener and noreferrer
             window.open(url, '_blank', 'noopener,noreferrer');
         } else {
             alert('Live stream link will be available closer to the service time.');
         }
     }
-
-    // Keep all other existing methods (loadPricing, loadSupportResources, etc.)
-    async loadPricing() {
-        // ... keep existing pricing code
-    }
-
-    async loadSupportResources() {
-        // ... keep existing support resources code
-    }
-
-    async loadBlogArticles() {
-        // ... keep existing blog articles code
-    }
-
-    async loadContactInfo() {
-        // ... keep existing contact info code
-    }
-
-    async loadFooterContent() {
-        // ... keep existing footer content code
-    }
 }
 
-// Initialize the application
+// Initialize the public website
 const beautifulFunerals = new BeautifulFunerals();
 
-// Make it available globally
+// Make it available globally for public use
 window.beautifulFunerals = beautifulFunerals;
