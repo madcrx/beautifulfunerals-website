@@ -31,11 +31,13 @@ Header always set Content-Security-Policy "default-src 'self'; script-src 'self'
     Header set Cache-Control "public, max-age=300"
 </FilesMatch>
 
-# Protect admin and config directories
-<DirectoryMatch "^/(admin|config)">
-    Order deny,allow
-    Deny from all
-</DirectoryMatch>
+# Protect admin directory
+<Directory "/admin">
+    AuthType Basic
+    AuthName "Admin Area"
+    AuthUserFile /home/yourusername/beautifulfunerals-config/.htpasswd
+    Require valid-user
+</Directory>
 
 # Allow access to admin API files
 <Files "admin/api/*.php">
