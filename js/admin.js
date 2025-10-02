@@ -2,11 +2,11 @@
 class SecureAdmin {
     constructor() {
         this.baseUrl = '/admin/api';
+        this.isAuthenticated = false;
         this.init();
     }
 
     init() {
-        this.checkAuthentication();
         this.setupEventListeners();
     }
 
@@ -15,14 +15,16 @@ class SecureAdmin {
             const response = await fetch('/admin/check-auth.php');
             const result = await response.json();
             
-            if (!result.success) {
-                this.showLoginModal();
+            if (result.success) {
+                this.isAuthenticated = true;
+                return true;
+            } else {
+                this.isAuthenticated = false;
                 return false;
             }
-            return true;
         } catch (error) {
             console.error('Auth check failed:', error);
-            this.showLoginModal();
+            this.isAuthenticated = false;
             return false;
         }
     }
@@ -40,6 +42,7 @@ class SecureAdmin {
             const result = await response.json();
             
             if (result.success) {
+                this.isAuthenticated = true;
                 this.hideLoginModal();
                 this.showAdminPanel();
                 return true;
@@ -57,15 +60,21 @@ class SecureAdmin {
     async logout() {
         try {
             await fetch('/admin/logout.php');
+            this.isAuthenticated = false;
             this.hideAdminPanel();
             this.showLoginModal();
         } catch (error) {
             console.error('Logout error:', error);
+            this.isAuthenticated = false;
+            this.hideAdminPanel();
         }
     }
 
     async addFuneral(funeralData) {
-        if (!await this.checkAuthentication()) return false;
+        if (!this.isAuthenticated && !await this.checkAuthentication()) {
+            this.showError('Please login first');
+            return false;
+        }
 
         try {
             const response = await fetch('/admin/api/funerals.php', {
@@ -80,6 +89,7 @@ class SecureAdmin {
             
             if (result.success) {
                 this.showSuccess('Funeral added successfully');
+                this.loadAdminFunerals();
                 return true;
             } else {
                 this.showError(result.message || 'Failed to add funeral');
@@ -93,7 +103,10 @@ class SecureAdmin {
     }
 
     async getFunerals() {
-        if (!await this.checkAuthentication()) return [];
+        if (!this.isAuthenticated && !await this.checkAuthentication()) {
+            this.showError('Please login first');
+            return [];
+        }
 
         try {
             const response = await fetch('/admin/api/funerals.php');
@@ -107,6 +120,7 @@ class SecureAdmin {
             }
         } catch (error) {
             console.error('Get funerals error:', error);
+            this.showError('Failed to load funerals');
             return [];
         }
     }
@@ -118,6 +132,9 @@ class SecureAdmin {
 
     hideLoginModal() {
         document.getElementById('admin-modal').classList.add('hidden');
+        // Clear form
+        const form = document.getElementById('admin-login-form');
+        if (form) form.reset();
     }
 
     showAdminPanel() {
@@ -130,11 +147,12 @@ class SecureAdmin {
     }
 
     showError(message) {
-        alert('Error: ' + message); // Replace with better UI notification
+        // Simple alert for now - you can replace with a better notification system
+        alert('Error: ' + message);
     }
 
     showSuccess(message) {
-        alert('Success: ' + message); // Replace with better UI notification
+        alert('Success: ' + message);
     }
 
     setupEventListeners() {
@@ -162,12 +180,6 @@ class SecureAdmin {
                 e.target.reset();
             });
         }
-
-        // Logout button
-        const logoutBtn = document.querySelector('[onclick="secureAdmin.logout()"]');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => this.logout());
-        }
     }
 
     async loadAdminFunerals() {
@@ -175,8 +187,11 @@ class SecureAdmin {
         const container = document.getElementById('admin-funerals-list');
         
         if (container) {
-            container.innerHTML = funerals.map(funeral => this.createFuneralAdminCard(funeral)).join('') || 
-                '<p class="text-gray-400">No funerals found.</p>';
+            if (funerals.length > 0) {
+                container.innerHTML = funerals.map(funeral => this.createFuneralAdminCard(funeral)).join('');
+            } else {
+                container.innerHTML = '<p class="text-gray-400 text-center py-8">No funerals found.</p>';
+            }
         }
     }
 
@@ -195,6 +210,7 @@ class SecureAdmin {
     }
 
     escapeHtml(unsafe) {
+        if (!unsafe) return '';
         return unsafe
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -202,7 +218,18 @@ class SecureAdmin {
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     }
+
+    // Placeholder for delete functionality
+    async deleteFuneral(funeralId) {
+        if (confirm('Are you sure you want to delete this funeral?')) {
+            // Implement delete functionality here
+            this.showError('Delete functionality not yet implemented');
+        }
+    }
 }
 
 // Initialize secure admin
 const secureAdmin = new SecureAdmin();
+
+// Make it available globally
+window.secureAdmin = secureAdmin;
