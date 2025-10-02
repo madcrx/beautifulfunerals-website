@@ -1,1 +1,84 @@
+/* Admin Panel Styles */
+.admin-panel {
+    background: #0f0f0f;
+    min-height: 100vh;
+}
 
+.admin-sidebar {
+    background: #1a1a1a;
+    width: 250px;
+    min-height: 100vh;
+}
+
+.admin-content {
+    flex: 1;
+    background: #0f0f0f;
+}
+
+.admin-card {
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.admin-table th {
+    background: #333;
+    font-weight: 600;
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+    width: 100%;
+    background: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: white;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+    outline: none;
+    border-color: #C0C0C0;
+    box-shadow: 0 0 0 2px rgba(192, 192, 192, 0.2);
+}
+
+.btn-primary {
+    background: #C0C0C0;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #ffffff;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+}
