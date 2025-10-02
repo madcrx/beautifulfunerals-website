@@ -1,4 +1,3 @@
-apache
 # Beautiful Funerals Website Configuration
 RewriteEngine On
 
@@ -10,11 +9,13 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
 
-# Security headers
-Header always set X-Content-Type-Options nosniff
-Header always set X-Frame-Options DENY
+# Enhanced Security Headers
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
 Header always set X-XSS-Protection "1; mode=block"
-Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://www.googletagmanager.com; style-src 'self' https://cdn.tailwindcss.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com;"
 
 # Cache control
 <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
@@ -24,6 +25,34 @@ Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains
 <FilesMatch "\.(html|htm)$">
     Header set Cache-Control "max-age=3600, public"
 </FilesMatch>
+
+# API caching
+<FilesMatch "api/.*\.php$">
+    Header set Cache-Control "public, max-age=300"
+</FilesMatch>
+
+# Protect admin and config directories
+<DirectoryMatch "^/(admin|config)">
+    Order deny,allow
+    Deny from all
+</DirectoryMatch>
+
+# Allow access to admin API files
+<Files "admin/api/*.php">
+    Order allow,deny
+    Allow from all
+</Files>
+
+# Block access to sensitive files
+<Files ~ "\.(env|log|sql|htaccess|htpasswd)$">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "config/*">
+    Order allow,deny
+    Deny from all
+</Files>
 
 # Gzip compression
 <IfModule mod_deflate.c>
@@ -42,3 +71,7 @@ Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains
 # Error pages
 ErrorDocument 404 /404.html
 ErrorDocument 500 /500.html
+ErrorDocument 403 /403.html
+
+# Prevent access to .git directory
+RedirectMatch 404 /\.git
