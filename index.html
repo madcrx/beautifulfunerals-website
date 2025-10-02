@@ -1,105 +1,335 @@
-    <!-- Admin Login Modal -->
-    <div id="admin-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
-        <div class="card-bg rounded-lg p-8 max-w-md w-full mx-4">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-semibold">Admin Login</h3>
-                <button onclick="secureAdmin.hideLoginModal()" class="text-gray-400 hover:text-white">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Funerals - Compassionate Funeral Services in Melbourne</title>
+    <meta name="description" content="Beautiful Funerals provides compassionate, professional funeral services throughout Melbourne. Based in Berwick VIC 3806, we're available 24/7 at 1300 AT NEED.">
+    <meta name="keywords" content="funeral services Melbourne, funeral directors Berwick, cremation services, funeral planning, grief support, memorial services">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    
+    <!-- CSS -->
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q30ZBVHMYD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q30ZBVHMYD');
+    </script>
+</head>
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="bg-black py-4 px-6 sticky top-0 z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/logo.png" alt="Beautiful Funerals" class="h-10 w-auto">
+                <h1 class="text-2xl font-semibold text-silver ml-3">Beautiful Funerals</h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-silver transition-all">Home</a>
+                <a href="#services" class="text-white hover:text-silver transition-all">Services</a>
+                <a href="#pricing" class="text-white hover:text-silver transition-all">Pricing</a>
+                <a href="#upcoming" class="text-white hover:text-silver transition-all">Upcoming Funerals</a>
+                <a href="#support" class="text-white hover:text-silver transition-all">Support</a>
+                <a href="#forms" class="text-white hover:text-silver transition-all">Statutory Forms</a>
+                <a href="#contact" class="text-white hover:text-silver transition-all">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-4">
+            <a href="#home" class="block text-white hover:text-silver transition-all">Home</a>
+            <a href="#services" class="block text-white hover:text-silver transition-all">Services</a>
+            <a href="#pricing" class="block text-white hover:text-silver transition-all">Pricing</a>
+            <a href="#upcoming" class="block text-white hover:text-silver transition-all">Upcoming Funerals</a>
+            <a href="#support" class="block text-white hover:text-silver transition-all">Support</a>
+            <a href="#forms" class="block text-white hover:text-silver transition-all">Statutory Forms</a>
+            <a href="#contact" class="block text-white hover:text-silver transition-all">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg py-32 px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Compassionate Funeral Services in Melbourne</h1>
+                <p class="text-xl mb-8 text-silver">Providing dignified and personalized funeral arrangements with care and respect</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#contact" class="bg-silver text-black px-6 py-3 rounded-lg font-medium hover:bg-white transition-all">Contact Us</a>
+                    <a href="#services" class="border border-silver text-silver px-6 py-3 rounded-lg font-medium hover:bg-silver hover:text-black transition-all">Our Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section-bg py-16 px-6">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Our Funeral Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="services-container">
+                    <!-- Services loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-16 px-6 bg-black">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Transparent Pricing</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="pricing-container">
+                    <!-- Pricing loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Funerals Section -->
+        <section id="upcoming" class="section-bg py-16 px-6">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Upcoming Funerals</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="funerals-container">
+                    <!-- Funerals loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="py-16 px-6 bg-black">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Grief Support & Resources</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div id="support-resources">
+                        <!-- Support resources loaded dynamically -->
+                    </div>
+                    <div id="blog-articles">
+                        <!-- Blog articles loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statutory Forms Section -->
+        <section id="forms" class="section-bg py-16 px-6">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Statutory Forms</h2>
+                <div class="card-bg p-8 rounded-lg">
+                    <p class="text-gray-300 mb-6">Please complete the following form to provide us with the necessary information prior to scheduling a meeting. This helps us prepare and ensures we can best assist you during this difficult time.</p>
+                    <form id="statutory-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium mb-1">First Name *</label>
+                                <input type="text" id="first-name" name="first_name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                            </div>
+                            <div>
+                                <label for="last-name" class="block text-sm font-medium mb-1">Last Name *</label>
+                                <input type="text" id="last-name" name="last_name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email Address *</label>
+                                <input type="email" id="email" name="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium mb-1">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="deceased-name" class="block text-sm font-medium mb-1">Deceased Person's Full Name *</label>
+                            <input type="text" id="deceased-name" name="deceased_name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="date-of-birth" class="block text-sm font-medium mb-1">Date of Birth</label>
+                                <input type="date" id="date-of-birth" name="date_of_birth" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver">
+                            </div>
+                            <div>
+                                <label for="date-of-death" class="block text-sm font-medium mb-1">Date of Death *</label>
+                                <input type="date" id="date-of-death" name="date_of_death" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="service-type" class="block text-sm font-medium mb-1">Preferred Service Type</label>
+                            <select id="service-type" name="service_type" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver">
+                                <option value="">Please select</option>
+                                <option value="traditional">Traditional Funeral</option>
+                                <option value="cremation">Cremation Service</option>
+                                <option value="memorial">Memorial Service</option>
+                                <option value="simple">Simple Farewell</option>
+                                <option value="premium">Premium Celebration</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="additional-info" class="block text-sm font-medium mb-1">Additional Information</label>
+                            <textarea id="additional-info" name="additional_info" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver"></textarea>
+                        </div>
+                        <div class="flex items-start">
+                            <input type="checkbox" id="privacy-consent" name="privacy_consent" class="mt-1 mr-2" required>
+                            <label for="privacy-consent" class="text-sm text-gray-300">I agree to the collection and use of my personal information in accordance with the Privacy Policy *</label>
+                        </div>
+                        <button type="submit" class="w-full bg-silver text-black py-3 rounded-lg font-medium hover:bg-white transition-all">Submit Form</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 px-6 bg-black">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold mb-12 text-center">Contact Us</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-6 text-silver">Get in Touch</h3>
+                        <p class="text-gray-300 mb-8">We're here to help you 24 hours a day, 7 days a week. Please don't hesitate to reach out to us.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium">Phone</h4>
+                                    <p class="text-gray-300">1300 AT NEED (1300 28 6333)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium">Address</h4>
+                                    <p class="text-gray-300">123 Funeral Services Road<br>Berwick VIC 3806</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium">Email</h4>
+                                    <p class="text-gray-300">info@beautifulfunerals.au</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-silver rounded-full flex items-center justify-center mr-4">
+                                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium">Hours</h4>
+                                    <p class="text-gray-300">24 hours, 7 days a week</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-bg p-8 rounded-lg">
+                        <h3 class="text-2xl font-semibold mb-6">Send us a Message</h3>
+                        <form id="contact-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="contact-first-name" class="block text-sm font-medium mb-1">First Name *</label>
+                                    <input type="text" id="contact-first-name" name="first_name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                                </div>
+                                <div>
+                                    <label for="contact-last-name" class="block text-sm font-medium mb-1">Last Name *</label>
+                                    <input type="text" id="contact-last-name" name="last_name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="contact-email" class="block text-sm font-medium mb-1">Email Address *</label>
+                                <input type="email" id="contact-email" name="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
+                            </div>
+                            <div>
+                                <label for="contact-phone" class="block text-sm font-medium mb-1">Phone Number</label>
+                                <input type="tel" id="contact-phone" name="phone" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver">
+                            </div>
+                            <div>
+                                <label for="contact-subject" class="block text-sm font-medium mb-1">Subject</label>
+                                <select id="contact-subject" name="subject" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver">
+                                    <option value="">Please select</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="arrangements">Funeral Arrangements</option>
+                                    <option value="pre-planning">Pre-Planning</option>
+                                    <option value="grief-support">Grief Support</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="contact-message" class="block text-sm font-medium mb-1">Message *</label>
+                                <textarea id="contact-message" name="message" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-silver text-black py-3 rounded-lg font-medium hover:bg-white transition-all">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="section-bg py-12 px-6 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8" id="footer-content">
+                <!-- Footer content loaded dynamically -->
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Beautiful Funerals. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Condolences Modal -->
+    <div id="condolences-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="card-bg rounded-lg p-6 max-w-md w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold" id="condolences-name">Condolences</h3>
+                <button onclick="beautifulFunerals.closeCondolences()" class="text-gray-400 hover:text-white">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
-            
-            <form id="admin-login-form" class="space-y-6">
-                <div>
-                    <label for="admin-username" class="block text-sm font-medium mb-1">Username</label>
-                    <input type="text" id="admin-username" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                </div>
-                
-                <div>
-                    <label for="admin-password" class="block text-sm font-medium mb-1">Password</label>
-                    <input type="password" id="admin-password" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                </div>
-                
-                <button type="submit" class="w-full bg-silver text-black py-3 rounded-lg font-medium hover:bg-white transition-all">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Admin Panel (hidden by default) -->
-    <div id="admin-panel" class="hidden fixed inset-0 bg-black z-50 overflow-y-auto">
-        <div class="min-h-screen bg-gray-900 text-white p-6">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex justify-between items-center mb-8">
-                    <h1 class="text-2xl font-semibold">Admin Panel</h1>
-                    <div>
-                        <button onclick="secureAdmin.logout()" class="bg-silver text-black px-4 py-2 rounded-lg font-medium hover:bg-white transition-all mr-4">Logout</button>
-                        <button onclick="secureAdmin.hideAdminPanel()" class="bg-gray-700 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-600 transition-all">Close</button>
+            <div id="condolences-list" class="space-y-4 mb-6"></div>
+            <div class="border-t border-gray-700 pt-4">
+                <h4 class="text-lg font-medium mb-3">Leave a Condolence</h4>
+                <form id="condolence-form">
+                    <div class="mb-4">
+                        <label for="condolence-name" class="block text-sm font-medium mb-1">Your Name</label>
+                        <input type="text" id="condolence-name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
                     </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="card-bg p-6 rounded-lg">
-                        <h2 class="text-xl font-semibold mb-4">Add New Funeral</h2>
-                        <form id="add-funeral-form" class="space-y-4">
-                            <div>
-                                <label for="new-funeral-name" class="block text-sm font-medium mb-1">Deceased Name *</label>
-                                <input type="text" id="new-funeral-name" name="name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="new-funeral-dob" class="block text-sm font-medium mb-1">Date of Birth</label>
-                                    <input type="date" id="new-funeral-dob" name="date_of_birth" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver">
-                                </div>
-                                
-                                <div>
-                                    <label for="new-funeral-dod" class="block text-sm font-medium mb-1">Date of Death *</label>
-                                    <input type="date" id="new-funeral-dod" name="date_of_death" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="new-funeral-location" class="block text-sm font-medium mb-1">Service Location *</label>
-                                <input type="text" id="new-funeral-location" name="location" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="new-funeral-date" class="block text-sm font-medium mb-1">Service Date *</label>
-                                    <input type="date" id="new-funeral-date" name="service_date" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                                </div>
-                                
-                                <div>
-                                    <label for="new-funeral-time" class="block text-sm font-medium mb-1">Service Time *</label>
-                                    <input type="time" id="new-funeral-time" name="service_time" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="new-funeral-stream" class="block text-sm font-medium mb-1">Live Stream URL (Optional)</label>
-                                <input type="url" id="new-funeral-stream" name="live_stream" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" placeholder="https://...">
-                            </div>
-                            
-                            <button type="submit" class="w-full bg-silver text-black py-2 rounded-lg font-medium hover:bg-white transition-all">Add Funeral</button>
-                        </form>
+                    <div class="mb-4">
+                        <label for="condolence-message" class="block text-sm font-medium mb-1">Your Message</label>
+                        <textarea id="condolence-message" rows="3" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-silver" required></textarea>
                     </div>
-                    
-                    <div class="card-bg p-6 rounded-lg">
-                        <h2 class="text-xl font-semibold mb-4">Manage Existing Funerals</h2>
-                        <div id="admin-funerals-list" class="space-y-4">
-                            <div class="text-gray-400 text-center py-8">
-                                <div class="loading mx-auto mb-2"></div>
-                                <p>Loading funerals...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <button type="submit" class="w-full bg-silver text-black py-2 rounded-lg font-medium hover:bg-white transition-all">Submit Condolence</button>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Admin Access Button -->
+    <!-- Admin Access Button (Hidden by default, only for staff) -->
     <button id="admin-access-button" onclick="secureAdmin.showLoginModal()" class="fixed bottom-4 right-4 bg-silver text-black p-3 rounded-full shadow-lg hover:bg-white transition-all no-print">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
