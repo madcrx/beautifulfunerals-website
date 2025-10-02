@@ -12,12 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // In production, store these in environment variables or a secure config file
-    $valid_username = getenv('ADMIN_USERNAME') ?: 'admin';
-    $valid_password_hash = getenv('ADMIN_PASSWORD_HASH') ?: password_hash('your_secure_password_here', PASSWORD_DEFAULT);
+    // Default credentials - CHANGE THESE IN PRODUCTION!
+    $valid_username = 'admin';
+    $valid_password = 'password';
     
     // Verify credentials
-    if ($input['username'] === $valid_username && password_verify($input['password'], $valid_password_hash)) {
+    if ($input['username'] === $valid_username && $input['password'] === $valid_password) {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_user'] = $input['username'];
         $_SESSION['login_time'] = time();
