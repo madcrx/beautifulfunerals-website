@@ -5,11 +5,9 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get form data
     $input = json_decode(file_get_contents('php://input'), true);
     
-    // Validate required fields
-    $required = ['first_name', 'last_name', 'email', 'phone', 'deceased_name', 'date_of_death'];
+    $required = ['first_name', 'last_name', 'email', 'message'];
     $errors = [];
     
     foreach ($required as $field) {
@@ -18,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    // Validate email
     if (!empty($input['email']) && !filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email format.";
     }
@@ -29,40 +26,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Prepare email content
+    // Prepare email
     $to = "info@beautifulfunerals.au";
-    $subject = "New Statutory Form Submission - Beautiful Funerals";
+    $subject = "New Contact Form Submission - " . ($input['subject'] ?? 'General Inquiry');
     
-    $message = "New statutory form submission received:\n\n";
-    $message .= "Client Information:\n";
+    $message = "Contact form submission details:\n\n";
     $message .= "Name: " . $input['first_name'] . " " . $input['last_name'] . "\n";
     $message .= "Email: " . $input['email'] . "\n";
-    $message .= "Phone: " . $input['phone'] . "\n\n";
-    
-    $message .= "Deceased Information:\n";
-    $message .= "Name: " . $input['deceased_name'] . "\n";
-    $message .= "Date of Birth: " . ($input['date_of_birth'] ?? 'Not provided') . "\n";
-    $message .= "Date of Death: " . $input['date_of_death'] . "\n\n";
-    
-    $message .= "Service Preferences:\n";
-    $message .= "Service Type: " . ($input['service_type'] ?? 'Not specified') . "\n";
-    $message .= "Additional Information: " . ($input['additional_info'] ?? 'None') . "\n";
+    $message .= "Phone: " . ($input['phone'] ?? 'Not provided') . "\n";
+    $message .= "Subject: " . ($input['subject'] ?? 'General Inquiry') . "\n\n";
+    $message .= "Message:\n" . $input['message'] . "\n";
     
     $headers = "From: website@beautifulfunerals.au\r\n";
     $headers .= "Reply-To: " . $input['email'] . "\r\n";
     
-    // Send email (commented out for safety - uncomment in production)
+    // Send email (commented out for safety)
     /*
     if (mail($to, $subject, $message, $headers)) {
-        echo json_encode(['success' => true, 'message' => 'Form submitted successfully.']);
+        echo json_encode(['success' => true, 'message' => 'Message sent successfully.']);
     } else {
         http_response_code(500);
-        echo json_encode(['success' => false, 'message' => 'Failed to send email.']);
+        echo json_encode(['success' => false, 'message' => 'Failed to send message.']);
     }
     */
     
-    // For demo purposes, always return success
-    echo json_encode(['success' => true, 'message' => 'Form submitted successfully. We will contact you shortly.']);
+    echo json_encode(['success' => true, 'message' => 'Message sent successfully. We will get back to you soon.']);
     
 } else {
     http_response_code(405);
