@@ -1,0 +1,16 @@
+
+## Deployment Instructions
+
+### 1. Web Server Requirements
+
+- PHP 7.4 or higher
+- Apache web server with mod_rewrite enabled
+- SSL certificate (recommended)
+
+### 2. Deployment Steps
+
+1. Upload all files to your web server's public directory
+2. Ensure file permissions are set correctly:
+   ```bash
+   chmod 644 .htaccess robots.txt sitemap.xml
+   chmod 755 css/ js/ images/ forms/

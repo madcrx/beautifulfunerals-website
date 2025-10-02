@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beautifulfunerals.au/sitemap.xml
+
+# Disallow admin area
+Disallow: /admin/
+Disallow: /forms/
+Disallow: /includes/
